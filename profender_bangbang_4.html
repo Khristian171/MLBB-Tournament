@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>b@ngi$$20 – Player Profile</title>
+<style>
+:root{
+  --bg:#0b0f1a;
+  --card:#141b2d;
+  --accent:#00bfff;
+  --text:#ffffff;
+  --sub:#9ca3af;
+  --gold:#ffd700;
+  --mvp:#c084fc;
+  --silver:#cbd5e1;
+  --bronze:#cd7f32;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,sans-serif;}
+body{background:var(--bg);color:var(--text);}
+
+.hero{text-align:center;padding:50px 20px 35px;background:linear-gradient(135deg,#101827,#0b0f1a);}
+.hero .back{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:0.9rem;margin-bottom:18px;}
+.hero .back:hover{opacity:.8;}
+.hero .tourney{color:var(--sub);font-size:0.85rem;margin-bottom:6px;}
+.hero h1{font-size:2.4rem;margin-bottom:4px;}
+.hero .realname{color:var(--sub);font-size:0.95rem;margin-bottom:18px;}
+.roles-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:4px;}
+.role-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;font-size:0.8rem;font-weight:bold;}
+.role-main{background:rgba(0,191,255,.15);color:var(--accent);border:1px solid rgba(0,191,255,.35);}
+.role-sec{background:rgba(156,163,175,.1);color:var(--sub);border:1px solid rgba(156,163,175,.25);}
+
+.container{max-width:1100px;margin:auto;padding:30px 20px 50px;}
+.section-title{
+  font-size:1.1rem;font-weight:bold;margin:32px 0 14px;
+  color:var(--accent);letter-spacing:.04em;text-transform:uppercase;
+  border-left:3px solid var(--accent);padding-left:10px;
+}
+
+/* Match history */
+.match-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;}
+.match-card{
+  background:var(--card);border-radius:12px;padding:12px 8px 10px;
+  text-align:center;border:1px solid rgba(255,255,255,.07);
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.match-hero-img{
+  width:52px;height:52px;border-radius:10px;
+  background:#1e2a40;display:flex;align-items:center;justify-content:center;
+  font-size:0.7rem;color:var(--sub);overflow:hidden;flex-shrink:0;
+}
+.match-hero-img img{width:100%;height:100%;object-fit:cover;border-radius:10px;}
+.match-hero-name{font-size:0.72rem;font-weight:bold;color:var(--text);line-height:1.2;}
+.match-kda{font-size:0.7rem;color:var(--sub);}
+.rank-badge{font-size:0.62rem;font-weight:bold;padding:2px 7px;border-radius:10px;}
+.rank-mvp{background:rgba(192,132,252,.2);color:var(--mvp);border:1px solid rgba(192,132,252,.4);}
+.rank-gold{background:rgba(255,215,0,.15);color:var(--gold);border:1px solid rgba(255,215,0,.35);}
+.rank-silver{background:rgba(203,213,225,.12);color:var(--silver);border:1px solid rgba(203,213,225,.3);}
+.rank-bronze{background:rgba(205,127,50,.15);color:var(--bronze);border:1px solid rgba(205,127,50,.35);}
+
+/* Hero pool */
+.pool-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;}
+.pool-card{
+  background:var(--card);border-radius:13px;padding:14px 10px 12px;
+  text-align:center;border:1px solid rgba(255,255,255,.07);
+  display:flex;flex-direction:column;align-items:center;gap:7px;
+}
+.pool-hero-img{
+  width:60px;height:60px;border-radius:50%;
+  background:#1e2a40;display:flex;align-items:center;justify-content:center;
+  font-size:0.75rem;color:var(--sub);overflow:hidden;flex-shrink:0;
+}
+.pool-hero-img img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.pool-hero-name{font-size:0.82rem;font-weight:bold;color:var(--text);}
+.pool-power{font-size:0.72rem;color:var(--accent);}
+.pool-stats{font-size:0.7rem;color:var(--sub);line-height:1.6;}
+.wr-bar{width:100%;height:4px;background:#1e2a40;border-radius:4px;overflow:hidden;}
+.wr-fill{height:100%;background:var(--accent);border-radius:4px;}
+
+footer{text-align:center;padding:30px;color:var(--sub);}
+
+@media(max-width:700px){
+  .match-grid{grid-template-columns:repeat(4,1fr);}
+  .pool-grid{grid-template-columns:repeat(2,1fr);}
+  .hero h1{font-size:1.8rem;}
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <a class="back" href="profender_bangbang.html">&#8592; Back to Profender Bangbang</a>
+  <p class="tourney">MLBB Tournament 2026 &nbsp;&middot;&nbsp; Profender Bangbang</p>
+  <h1 id="playerIGN">b@ngi$$20</h1>
+  <p class="realname" id="playerName"></p>
+  <div class="roles-row" id="rolesRow"></div>
+</section>
+
+<div class="container">
+
+  <div class="section-title">Match History (13 Games)</div>
+  <div class="match-grid" id="matchGrid1"></div>
+  <div class="match-grid" style="margin-top:12px;" id="matchGrid2"></div>
+
+  <div class="section-title" id="poolTitle1">Jungle – Hero Pool</div>
+  <div class="pool-grid" id="poolMain"></div>
+
+  <div class="section-title" id="poolTitle2">Roam – Hero Pool</div>
+  <div class="pool-grid" id="poolSec"></div>
+
+  <div class="section-title" id="poolTitle3">EXP – Hero Pool</div>
+  <div class="pool-grid" id="poolThird"></div>
+
+</div>
+
+<footer>MLBB Tournament Database &copy; 2026</footer>
+
+<script>
+/*
+  ── PLAYER INFO ──────────────────────────────────────────────
+  ign       : in-game name (shown as page title)
+  name      : real name
+  mainRole  : primary role (Jungle / Gold / EXP / Roam / Mid)
+  secRoles  : array of secondary roles (up to 2)
+*/
+const player = {
+  ign:      "b@ngi$$20",
+  name:     " ",
+  mainRole: "ROAM",
+  secRoles: ["EXP", "MID"],
+};
+
+/*
+  ── MATCH HISTORY (13 matches) ───────────────────────────────
+  hero    : hero name
+  img     : path to hero image e.g. "images/lancelot.jpg"  (leave "" for initials)
+  kda     : "K/D/A" string
+  rank    : "mvp" | "gold" | "silver" | "bronze"
+  rankImg : path to rank badge image (leave "" to use colored text badge)
+*/
+const matches = [
+  { hero:"Hylos", img:"heroes/hylos.png", kda:"1/5/20",  rank:"gold",    rankImg:"" },
+  { hero:" ",    img:"", kda:" ", rank:" ",    rankImg:"" },
+  { hero:" ",    img:"", kda:" ", rank:" ",    rankImg:"" },
+  { hero:" ",    img:"", kda:" ", rank:" ",    rankImg:"" },
+  { hero:" ",    img:"", kda:" ", rank:" ",    rankImg:"" },
+  { hero:" ",    img:"", kda:" ", rank:" ",    rankImg:"" },
+  { hero:" ",    img:"", kda:" ", rank:" ",    rankImg:"" },
+  { hero:" ",    img:"", kda:" ", rank:" ",    rankImg:"" },
+  { hero:" ",    img:"", kda:" ", rank:" ",    rankImg:"" },
+  { hero:" ",    img:"", kda:" ", rank:" ",    rankImg:"" },
+  { hero:" ",    img:"", kda:" ", rank:" ",    rankImg:"" },
+  { hero:" ",    img:"", kda:" ", rank:" ",    rankImg:"" },
+  { hero:" ",    img:"", kda:" ", rank:" ",    rankImg:"" },
+];
+
+/*
+  ── HERO POOLS (5 heroes each) ───────────────────────────────
+  hero    : hero name
+  img     : path to hero image (leave "" for initials)
+  power   : hero role/type label
+  matches : number of matches
+  wr      : win rate 0-100
+*/
+const poolMain = [
+  { hero:"Hylos", img:"heroes/hylos.png", power:"87 Total Matches", matches:79, wr:62.0 },
+  { hero:"Badang",    img:"heroes/badang.png", power:"42 Total Matches ", matches:10, wr:70.0 },
+  { hero:"Kalea", img:"heroes/kalea.png", power:"6 Total Matches",    matches:6, wr:66.7 },
+  { hero:"Belerick", img:"heroes/belerick.png", power:"6 Total Matches",    matches:6, wr:50.0 },
+  { hero:"Franco",   img:"heroes/franco.png", power:"19 Total Matches",  matches:4, wr:50.0 },
+];
+
+const poolSec = [
+  { hero:"Silvanna",   img:"heroes/silvanna.png", power:"81 Total Matches", matches:45, wr:57.8 },
+  { hero:"Guinivere",  img:"heroes/guinivere.png", power:"46 Total Matches",     matches:28, wr:50.0 },
+  { hero:"X.Borg",  img:"heroes/xborg.png", power:"45 Total Matches",           matches:20, wr:30.0 },
+  { hero:"Alpha", img:"heroes/alpha.png", power:"76 Total Matches",           matches:16, wr:56.2 },
+  { hero:"Phoveus",  img:"heroes/phoveus.png", power:"18 Total Matches",        matches:12, wr:58.3 },
+];
+
+const poolThird = [
+  { hero:"Zetian", img:"heroes/zetian.png", power:"13 Total Matches",  matches:13, wr:38.5 },
+  { hero:"Chang'e",   img:"heroes/change.png", power:"80 Total Matches",        matches:8, wr:37.5 },
+  { hero:"Vexana",    img:"heroes/vexana.png", power:"15 Total Matches ",         matches:4, wr:50.0 },
+  { hero:"Lesley",    img:"heroes/lesley.png", power:"11 Total Matches",      matches:4, wr:25.0 },
+  { hero:"Akai",  img:"heroes/akai.png", power:"8 Total Matches",  matches:4, wr:25.0 },
+];
+
+/* ── Rendering ───────────────────────────────────────────── */
+function initials(name){
+  return name.split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
+}
+
+function buildMatchCard(m){
+  const d = document.createElement("div");
+  d.className = "match-card";
+  const imgEl = m.img
+    ? `<img src="${m.img}" alt="${m.hero}">`
+    : `<span>${initials(m.hero)}</span>`;
+  const rankEl = m.rankImg
+    ? `<img src="${m.rankImg}" alt="${m.rank}" style="height:18px;">`
+    : `<span class="rank-badge rank-${m.rank}">${m.rank==="mvp"?"MVP":m.rank.charAt(0).toUpperCase()+m.rank.slice(1)}</span>`;
+  d.innerHTML = `
+    <div class="match-hero-img">${imgEl}</div>
+    <div class="match-hero-name">${m.hero}</div>
+    <div class="match-kda">${m.kda}</div>
+    ${rankEl}
+  `;
+  return d;
+}
+
+function buildPoolCard(p){
+  const d = document.createElement("div");
+  d.className = "pool-card";
+  const imgEl = p.img
+    ? `<img src="${p.img}" alt="${p.hero}">`
+    : `<span>${initials(p.hero)}</span>`;
+  d.innerHTML = `
+    <div class="pool-hero-img">${imgEl}</div>
+    <div class="pool-hero-name">${p.hero}</div>
+    <div class="pool-power">${p.power}</div>
+    <div class="pool-stats">${p.matches} matches &nbsp;&middot;&nbsp; ${p.wr}% WR</div>
+    <div class="wr-bar"><div class="wr-fill" style="width:${p.wr}%"></div></div>
+  `;
+  return d;
+}
+
+/* Fill header */
+document.getElementById("playerIGN").textContent  = player.ign;
+document.getElementById("playerName").textContent = player.name;
+document.title = player.ign + " – Player Profile";
+
+const rolesRow = document.getElementById("rolesRow");
+const mb = document.createElement("span");
+mb.className = "role-badge role-main";
+mb.textContent = player.mainRole;
+rolesRow.appendChild(mb);
+player.secRoles.forEach(r=>{
+  const s = document.createElement("span");
+  s.className = "role-badge role-sec";
+  s.textContent = r;
+  rolesRow.appendChild(s);
+});
+
+/* Match history – row 1 (7) + row 2 (6) */
+const g1 = document.getElementById("matchGrid1");
+const g2 = document.getElementById("matchGrid2");
+matches.slice(0,7).forEach(m => g1.appendChild(buildMatchCard(m)));
+matches.slice(7).forEach(m  => g2.appendChild(buildMatchCard(m)));
+
+/* Pool titles */
+document.getElementById("poolTitle1").textContent = player.mainRole + " – Hero Pool";
+document.getElementById("poolTitle2").textContent = (player.secRoles[0]||"Secondary") + " – Hero Pool";
+document.getElementById("poolTitle3").textContent = "Other Hero Pool";
+
+/* Hero pools */
+const pm = document.getElementById("poolMain");
+const ps = document.getElementById("poolSec");
+const pt = document.getElementById("poolThird");
+poolMain.forEach(p  => pm.appendChild(buildPoolCard(p)));
+poolSec.forEach(p   => ps.appendChild(buildPoolCard(p)));
+poolThird.forEach(p => pt.appendChild(buildPoolCard(p)));
+</script>
+
+</body>
+</html>
