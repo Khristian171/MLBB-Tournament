@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MLBB Tournament 2026</title>
+
+<style>
+:root{
+    --bg:#0b0f1a;
+    --card:#141b2d;
+    --accent:#00bfff;
+    --text:#ffffff;
+    --sub:#9ca3af;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, sans-serif;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+}
+
+.hero{
+    text-align:center;
+    padding:60px 20px;
+    background:linear-gradient(
+        135deg,
+        #101827,
+        #0b0f1a
+    );
+}
+
+.hero h1{
+    font-size:3rem;
+    margin-bottom:10px;
+}
+
+.hero p{
+    color:var(--sub);
+}
+
+.stats{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    margin-top:25px;
+    flex-wrap:wrap;
+}
+
+.stat{
+    background:var(--card);
+    padding:15px 25px;
+    border-radius:12px;
+}
+
+.stat h2{
+    color:var(--accent);
+}
+
+.container{
+    max-width:1300px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+.search{
+    margin-bottom:30px;
+}
+
+.search input{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:var(--card);
+    color:white;
+    font-size:16px;
+}
+
+.section-title{
+    margin-bottom:20px;
+    font-size:1.8rem;
+}
+
+.team-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.team-card{
+    background:var(--card);
+    border-radius:15px;
+    padding:20px;
+    transition:.3s;
+    cursor:pointer;
+    border:1px solid transparent;
+}
+
+.team-card:hover{
+    transform:translateY(-5px);
+    border-color:var(--accent);
+}
+
+.team-logo{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    margin-bottom:15px;
+    object-fit:cover;
+}
+
+.team-name{
+    font-size:1.2rem;
+    font-weight:bold;
+}
+
+.team-info{
+    color:var(--sub);
+    margin-top:8px;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    color:var(--sub);
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+    <h1>MLBB Tournament 2026</h1>
+    <p>Official Team & Player Database</p>
+
+    <div class="stats">
+        <div class="stat">
+            <h2>14</h2>
+            <p>Teams</p>
+        </div>
+
+        <div class="stat">
+            <h2>70</h2>
+            <p>Players</p>
+        </div>
+
+        <div class="stat">
+            <h2>5</h2>
+            <p>Roles</p>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+
+    <div class="search">
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search Team..."
+        >
+    </div>
+
+    <h2 class="section-title">Teams</h2>
+
+    <div class="team-grid" id="teamGrid">
+
+        <!-- TEAM 1 -->
+        <div class="team-card">
+            <img
+                src="https://via.placeholder.com/70"
+                class="team-logo"
+            >
+
+            <div class="team-name">
+                Team Alpha
+            </div>
+
+            <div class="team-info">
+                5 Players
+            </div>
+        </div>
+
+        <!-- TEAM 2 -->
+        <div class="team-card">
+            <img
+                src="https://via.placeholder.com/70"
+                class="team-logo"
+            >
+
+            <div class="team-name">
+                Team Bravo
+            </div>
+
+            <div class="team-info">
+                5 Players
+            </div>
+        </div>
+
+        <!-- Add remaining teams here -->
+
+    </div>
+
+</div>
+
+<footer>
+    MLBB Tournament Database © 2026
+</footer>
+
+<script>
+const searchInput =
+document.getElementById("searchInput");
+
+searchInput.addEventListener("keyup",()=>{
+
+    let value =
+    searchInput.value.toLowerCase();
+
+    document
+    .querySelectorAll(".team-card")
+    .forEach(card=>{
+
+        let text =
+        card.textContent.toLowerCase();
+
+        card.style.display =
+        text.includes(value)
+        ? "block"
+        : "none";
+
+    });
+
+});
+</script>
+
+</body>
+</html>
