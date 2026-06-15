@@ -120,7 +120,7 @@ const teams = [
   { name:"HHKY",    file:"hhky.html",    initials:"HKY" },
   { name:"Option X",    file:"option_x.html",    initials:"OX" },
   { name:"Pro-fender Gamers",    file:"pro_fender_games.html",    initials:"PFG" },
-  { name:"Profender Bangbang",  file:"profender_bangbang.html",  initials:"PB" },
+  { name:"Profender Bangbang",  file:"profender_bangbang.html",  img:"teams/profenderbangbang.png },
   { name:"Ridemax Syndicate",     file:"ridemax_syndicate.html",     initials:"RS" },
   { name:"Venom Powerhouse",    file:"venom_powerhouse.html",    initials:"VP" },
   { name:"Wheel Legend",  file:"wheel_legend.html",  initials:"WL" },
@@ -151,7 +151,7 @@ function buildGrid(list){
       a.className = "team-card";
       a.href = team.file;
       a.innerHTML = `
-        <div class="team-logo">${team.initials}</div>
+        <div class="team-logo">${team.img ? `<img src="${team.img}" alt="${team.name}">` : team.initials}</div>
         <div class="team-name">${team.name}</div>
       `;
       rowEl.appendChild(a);
